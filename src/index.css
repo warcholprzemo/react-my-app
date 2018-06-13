@@ -38,6 +38,7 @@ ol, ul{
 
 .game{
     display: flex;
+    flex-wrap: wrap;
     flex-direction: row;
 }
 
@@ -47,4 +48,13 @@ ol, ul{
 
 .winbox{
     background-color: green;
+}
+
+.input-field{
+    margin-top:15px;
+    width:100%;
+}
+
+.sizeinput{
+    display:block;
 }

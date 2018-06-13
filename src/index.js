@@ -31,6 +31,30 @@ function Square(props){
 }
 
 
+class SizeBoardInput extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            inputValue: ''
+        }
+    }
+
+    render(){
+        return(
+            <input type="text" value={this.state.inputValue}
+                   onChange={evt => this.updateInputValue(evt)}
+                   className="sizeinput"/>
+        );
+    }
+
+    updateInputValue(evt){
+        this.setState({
+            inputValue: evt.target.value
+        });
+    }
+
+}
+
 class Board extends React.Component{
     renderSquare(i){
         return (
@@ -151,6 +175,10 @@ class Game extends React.Component{
                 <div className="game-info">
                     <div>{status}</div>
                     <ol>{moves}</ol>
+                </div>
+                <div className="input-field">
+                    <label>Future input to setup size of go-board</label>
+                    <SizeBoardInput />
                 </div>
             </div>
         );
