@@ -1,93 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-
-/*
-class Square extends React.Component {
-    // We don't need a construtor and its state now  
-    //constructor(props){
-    //    super(props);
-    //    this.state = {
-    //        value: null,
-    //    }
-    //}
-    render(){
-        return (
-            <button className="square" onClick={() => this.props.onClick()  }>
-                {this.props.value}
-            </button>
-        );
-    }
-}
-*/
-// And now because our Square class is very easy we can change it to functional components
-function Square(props){
-    console.log("props", props);
-    return (
-        <button className={props.winClass()} onClick={props.onClick}>
-            {props.value}
-        </button>
-    );
-}
+import Board from './game1'
+import {SizeBoardInput, AcceptSizeButton} from './game2'
 
 
-class SizeBoardInput extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            inputValue: ''
-        }
-    }
-
-    render(){
-        return(
-            <input type="text" value={this.state.inputValue}
-                   onChange={evt => this.updateInputValue(evt)}
-                   className="sizeinput"/>
-        );
-    }
-
-    updateInputValue(evt){
-        this.setState({
-            inputValue: evt.target.value
-        });
-    }
-
-}
-
-class Board extends React.Component{
-    renderSquare(i){
-        return (
-            <Square 
-                   value={this.props.squares[i]}
-                   onClick={() => this.props.onClick(i)}
-                   winClass={() => this.props.winClass(i)}
-            />
-        );
-    }
-
-    render(){
-        return (
-        <div>
-            <div className="board-row">
-                {this.renderSquare(0)}
-                {this.renderSquare(1)}
-                {this.renderSquare(2)}
-            </div>
-            <div className="board-row">
-                {this.renderSquare(3)}
-                {this.renderSquare(4)}
-                {this.renderSquare(5)}
-            </div>
-            <div className="board-row">
-                {this.renderSquare(6)}
-                {this.renderSquare(7)}
-                {this.renderSquare(8)}
-            </div>
-        </div>
-        );
-    }
-}
 
 class Game extends React.Component{
     //Add history of moves
@@ -176,15 +93,42 @@ class Game extends React.Component{
                     <div>{status}</div>
                     <ol>{moves}</ol>
                 </div>
-                <div className="input-field">
-                    <label>Future input to setup size of go-board</label>
-                    <SizeBoardInput />
-                </div>
             </div>
         );
     }
 }
 // -----------------------
+
+
+class BigTicTac extends React.Component{
+    constructor(props){
+        super(props);
+    }
+
+    render(){
+        return(
+            <div className="game">
+                <div className="input-field">
+                    <label>Future input to setup size of go-board</label>
+                    <SizeBoardInput />
+                    <AcceptSizeButton />
+                </div>
+            </div>
+        );
+    }
+}
+
+class BattleField extends React.Component{
+    render(){
+        return(
+            <div class="battlefield">
+                <Game />
+                <BigTicTac />
+            </div>
+        );
+    }
+}
+
 
 // --- Helper function
 function baseCalculateWinner(squares){
@@ -230,6 +174,6 @@ function calculateTie(squares){
 }
 
 ReactDOM.render(
-    <Game />,
+    <BattleField />,
     document.getElementById('root')
 );
