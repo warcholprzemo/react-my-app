@@ -103,15 +103,33 @@ class Game extends React.Component{
 class BigTicTac extends React.Component{
     constructor(props){
         super(props);
+        this.state = {
+            sizeBoard: 10,
+        }
+    }
+
+    handleClick(){
+        console.log("BigTicTac.handleClick", this.state.sizeBoard, typeof this.state.sizeBoard);
+    }
+
+    handleInputValue(event){
+        const maybeNumber = Number.parseInt(event.target.value);
+        let inpValue = 10;
+        if(!isNaN(maybeNumber))
+            inpValue = maybeNumber;
+
+        this.setState({
+            sizeBoard: inpValue
+        });
     }
 
     render(){
         return(
             <div className="game">
                 <div className="input-field">
-                    <label>Future input to setup size of go-board</label>
-                    <SizeBoardInput />
-                    <AcceptSizeButton />
+                    <label>Future input to setup size of go-board. Range [2; 20], default 10</label>
+                    <SizeBoardInput onChange={event => this.handleInputValue(event)} />
+                    <AcceptSizeButton onClick={() => this.handleClick() }/>
                 </div>
             </div>
         );
@@ -121,7 +139,7 @@ class BigTicTac extends React.Component{
 class BattleField extends React.Component{
     render(){
         return(
-            <div class="battlefield">
+            <div className="battlefield">
                 <Game />
                 <BigTicTac />
             </div>
