@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Board from './game1'
+import {Square, Board} from './game1'
 import {SizeBoardInput, AcceptSizeButton} from './game2'
 
 
@@ -104,23 +104,43 @@ class BigTicTac extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            sizeBoard: 10,
+            sizeBoard: 5,
+            rows: []
         }
     }
 
-    handleClick(){
-        console.log("BigTicTac.handleClick", this.state.sizeBoard, typeof this.state.sizeBoard);
+    handleButtonClick(){
+        let rows = [];
+        for(let i=0; i<this.state.sizeBoard; i++){
+            let columns = [];
+            for(let j=0; j<this.state.sizeBoard; j++){
+                var uniqueId = "" + i + ";" + j;
+                columns.push(<Square
+                       value={null}
+                       onClick={() => this.justClick(i,j)}
+                       winClass={() => 'square'}
+                       key={uniqueId}
+                />);
+            }
+            rows.push(<div key={i} className="board-row">{columns}</div>);
+        }
+        this.setState({
+            rows: rows
+        });
     }
 
     handleInputValue(event){
         const maybeNumber = Number.parseInt(event.target.value);
-        let inpValue = 10;
-        if(!isNaN(maybeNumber))
-            inpValue = maybeNumber;
+        if(!isNaN(maybeNumber)){
+            let inpValue = maybeNumber;
+            this.setState({
+                sizeBoard: inpValue
+            });
+        }
+    }
 
-        this.setState({
-            sizeBoard: inpValue
-        });
+    justClick(i,j){
+        console.log("JustClick", i,j);
     }
 
     render(){
@@ -129,7 +149,10 @@ class BigTicTac extends React.Component{
                 <div className="input-field">
                     <label>Future input to setup size of go-board. Range [2; 20], default 10</label>
                     <SizeBoardInput onChange={event => this.handleInputValue(event)} />
-                    <AcceptSizeButton onClick={() => this.handleClick() }/>
+                    <AcceptSizeButton onClick={() => this.handleButtonClick() }/>
+                    <div className="mrg-top">
+                        {this.state.rows}
+                    </div>
                 </div>
             </div>
         );

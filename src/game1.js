@@ -21,7 +21,7 @@ class Square extends React.Component {
 }
 */
 // And now because our Square class is very easy we can change it to functional components
-function Square(props){
+export function Square(props){
     return (
         <button className={props.winClass()} onClick={props.onClick}>
             {props.value}
@@ -29,7 +29,7 @@ function Square(props){
     );
 }
 
-export default class Board extends React.Component{
+export class Board extends React.Component{
     renderSquare(i){
         return (
             <Square

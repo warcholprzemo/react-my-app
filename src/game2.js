@@ -6,7 +6,7 @@ export class SizeBoardInput extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            inputValue: 10,
+            inputValue: 5,
         }
     }
 
