@@ -105,18 +105,20 @@ class BigTicTac extends React.Component{
         super(props);
         this.state = {
             sizeBoard: 5,
-            rows: []
+            rows: [],
+            game: [],
+            xNext: true,
         }
     }
 
-    handleButtonClick(){
+    refreshBoard(){
         let rows = [];
         for(let i=0; i<this.state.sizeBoard; i++){
             let columns = [];
             for(let j=0; j<this.state.sizeBoard; j++){
                 var uniqueId = "" + i + ";" + j;
                 columns.push(<Square
-                       value={null}
+                       value={this.showValue(i, j)}
                        onClick={() => this.justClick(i,j)}
                        winClass={() => 'square'}
                        key={uniqueId}
@@ -125,8 +127,33 @@ class BigTicTac extends React.Component{
             rows.push(<div key={i} className="board-row">{columns}</div>);
         }
         this.setState({
-            rows: rows
+            rows: rows,
         });
+    }
+
+    handleButtonClick(){
+        let game = [];
+        for(let k=0;k<this.state.sizeBoard;k++){
+            let game_columns = [];
+            for(let m=0;m<this.state.sizeBoard;m++){
+                game_columns.push(null);
+            }
+            game.push(game_columns);
+
+        }
+        this.setState({
+            game: game,
+        });
+
+        this.refreshBoard();
+    }
+
+    showValue(i, j){
+        try{
+            return this.state.game[i][j];
+        } catch(TypeError){
+            return null;
+        }
     }
 
     handleInputValue(event){
@@ -140,7 +167,15 @@ class BigTicTac extends React.Component{
     }
 
     justClick(i,j){
-        console.log("JustClick", i,j);
+        const xNext = this.state.xNext;
+        let game = this.state.game;
+        game[i][j] = xNext ? 'X' : 'O';
+        this.setState({
+            game: game,
+            xNext: !xNext,
+        });
+
+        this.refreshBoard();
     }
 
     render(){
