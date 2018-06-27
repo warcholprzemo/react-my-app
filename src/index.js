@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import {Square, Board} from './game1'
-import {SizeBoardInput, AcceptSizeButton} from './game2'
+import {SizeBoardInput, AcceptSizeButton, BigTicTacLabel} from './game2'
 
 
 
@@ -108,7 +108,8 @@ class BigTicTac extends React.Component{
             rows: [],
             game: [],
             xNext: true,
-        }
+        };
+        this.setBigTicTacLabel = this.setBigTicTacLabel.bind(this);
     }
 
     refreshBoard(){
@@ -131,6 +132,7 @@ class BigTicTac extends React.Component{
         });
     }
 
+    /* TODO: change to .bind(this) in constructor */
     handleButtonClick(){
         let game = [];
         for(let k=0;k<this.state.sizeBoard;k++){
@@ -149,6 +151,7 @@ class BigTicTac extends React.Component{
     }
 
     showValue(i, j){
+        /* TODO: setup some default. This try-catch is so ugly... */
         try{
             return this.state.game[i][j];
         } catch(TypeError){
@@ -169,6 +172,7 @@ class BigTicTac extends React.Component{
     justClick(i,j){
         const xNext = this.state.xNext;
         let game = this.state.game;
+        /* TODO: handle incorrect clicks (click on already marked field) */
         game[i][j] = xNext ? 'X' : 'O';
         this.setState({
             game: game,
@@ -176,6 +180,43 @@ class BigTicTac extends React.Component{
         });
 
         this.refreshBoard();
+    }
+
+    setBigTicTacLabel(){
+        let counter = 0;
+        if(!this.state.game.length)
+            return "Number of moves: " + counter;
+
+
+
+        /* ---- POC of setup winner. For now it checks if first if X or O has full column ---- */
+        /* TODO: move computation of win to separate function */
+        let xWin = true;
+        let oWin = true;
+        for(let i=0; i<this.state.sizeBoard; i++){
+            if(this.state.game[i][0] === 'O')
+                xWin = false;
+            if(this.state.game[i][0] === 'X')
+                oWin = false;
+            if(this.state.game[i][0] === null){
+                oWin = false;
+                xWin = false;
+                break;
+            }
+        }
+        if(xWin)
+            return "X is the winner!";
+        if(oWin)
+            return "O is the winner!";
+        /* ---- end of POC ---- */
+
+        for(let i=0; i<this.state.sizeBoard; i++){
+            for(let j=0; j<this.state.sizeBoard; j++){
+                if(this.state.game[i][j])
+                    counter++;
+            }
+        }
+        return "Number of moves: " + counter;
     }
 
     render(){
@@ -188,6 +229,7 @@ class BigTicTac extends React.Component{
                     <div className="mrg-top">
                         {this.state.rows}
                     </div>
+                    <BigTicTacLabel setInfo={this.setBigTicTacLabel} />
                 </div>
             </div>
         );
@@ -207,6 +249,7 @@ class BattleField extends React.Component{
 
 
 // --- Helper function
+/* TODO: move below functions to another file */
 function baseCalculateWinner(squares){
     const lines = [
         [0, 1, 2],

@@ -30,13 +30,17 @@ export class SizeBoardInput extends React.Component{
 }
 
 export class AcceptSizeButton extends React.Component{
-    constructor(props){
-        super(props);
-    }
-
     render(){
         return(
             <input type="submit" value="Generate" onClick={() => this.props.onClick()} />
+        );
+    }
+}
+
+export class BigTicTacLabel extends React.Component{
+    render(){
+        return(
+            <label>{this.props.setInfo()}</label>
         );
     }
 }
