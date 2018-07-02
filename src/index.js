@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import {Square, Board} from './game1'
-import {SizeBoardInput, AcceptSizeButton, BigTicTacLabel} from './game2'
+import {SizeBoardInput, AcceptSizeButton, BigTicTacLabel,
+        computeWinner} from './game2'
 
 
 
@@ -104,12 +105,19 @@ class BigTicTac extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            sizeBoard: 5,
+            sizeBoard: 10,
             rows: [],
             game: [],
             xNext: true,
+            curX: -1,
+            curY: -1,
         };
         this.setBigTicTacLabel = this.setBigTicTacLabel.bind(this);
+    }
+
+    getSquareClass(i, j){
+        const mainClass = 'square';
+        return (i+j) % 2 === 0 ? mainClass : mainClass + ' square-dark'
     }
 
     refreshBoard(){
@@ -121,7 +129,7 @@ class BigTicTac extends React.Component{
                 columns.push(<Square
                        value={this.showValue(i, j)}
                        onClick={() => this.justClick(i,j)}
-                       winClass={() => 'square'}
+                       winClass={() => this.getSquareClass(i,j)}
                        key={uniqueId}
                 />);
             }
@@ -177,6 +185,8 @@ class BigTicTac extends React.Component{
         this.setState({
             game: game,
             xNext: !xNext,
+            curX: i,
+            curY: j,
         });
 
         this.refreshBoard();
@@ -184,31 +194,16 @@ class BigTicTac extends React.Component{
 
     setBigTicTacLabel(){
         let counter = 0;
-        if(!this.state.game.length)
+        if(!this.state.game.length || this.state.curY === -1)
             return "Number of moves: " + counter;
 
+        const finalScore = computeWinner(this.state.sizeBoard, this.state.game,
+                                         this.state.curX, this.state.curY);
 
-
-        /* ---- POC of setup winner. For now it checks if first if X or O has full column ---- */
-        /* TODO: move computation of win to separate function */
-        let xWin = true;
-        let oWin = true;
-        for(let i=0; i<this.state.sizeBoard; i++){
-            if(this.state.game[i][0] === 'O')
-                xWin = false;
-            if(this.state.game[i][0] === 'X')
-                oWin = false;
-            if(this.state.game[i][0] === null){
-                oWin = false;
-                xWin = false;
-                break;
-            }
-        }
-        if(xWin)
+        if(finalScore['xWin'])
             return "X is the winner!";
-        if(oWin)
+        if(finalScore['oWin'])
             return "O is the winner!";
-        /* ---- end of POC ---- */
 
         for(let i=0; i<this.state.sizeBoard; i++){
             for(let j=0; j<this.state.sizeBoard; j++){
@@ -223,7 +218,7 @@ class BigTicTac extends React.Component{
         return(
             <div className="game">
                 <div className="input-field">
-                    <label>Future input to setup size of go-board. Range [2; 20], default 10</label>
+                    <label>Setup size of go-board. Range [2; 20], default 10</label>
                     <SizeBoardInput onChange={event => this.handleInputValue(event)} />
                     <AcceptSizeButton onClick={() => this.handleButtonClick() }/>
                     <div className="mrg-top">

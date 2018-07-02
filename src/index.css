@@ -28,6 +28,10 @@ ol, ul{
     width:34px;
 }
 
+.square-dark{
+    background:#efefef;
+}
+
 .square:focus{
     outline:none;
 }
