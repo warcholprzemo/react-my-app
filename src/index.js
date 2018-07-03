@@ -111,13 +111,35 @@ class BigTicTac extends React.Component{
             xNext: true,
             curX: -1,
             curY: -1,
+            finalScore: {
+                'xWin': false,
+                'oWin': false,
+                'winnerXFields': [],
+                'winnerOFields': [],
+            },
         };
         this.setBigTicTacLabel = this.setBigTicTacLabel.bind(this);
     }
 
     getSquareClass(i, j){
         const mainClass = 'square';
-        return (i+j) % 2 === 0 ? mainClass : mainClass + ' square-dark'
+
+        const str_winnerXFields = JSON.stringify(this.state.finalScore['winnerXFields']);
+        const str_winnerOFields = JSON.stringify(this.state.finalScore['winnerOFields']);
+
+        if(str_winnerXFields.indexOf(JSON.stringify([i,j])) > -1 ||
+           str_winnerOFields.indexOf(JSON.stringify([i,j])) > -1 )
+        {
+            return mainClass + ' winbox';
+        }
+        else if((i+j) % 2 === 0){
+            return mainClass;
+        } else {
+            return mainClass + ' square-dark'
+        }
+
+
+        return (i+j) % 2 === 0 ? mainClass : mainClass + ' square-dark';
     }
 
     refreshBoard(){
@@ -182,6 +204,14 @@ class BigTicTac extends React.Component{
         let game = this.state.game;
         /* TODO: handle incorrect clicks (click on already marked field) */
         game[i][j] = xNext ? 'X' : 'O';
+
+        if(this.state.game.length){
+            const finalScore = computeWinner(this.state.sizeBoard, game, i, j);
+            this.setState({
+                finalScore: finalScore,
+            });
+        }
+
         this.setState({
             game: game,
             xNext: !xNext,
@@ -197,12 +227,9 @@ class BigTicTac extends React.Component{
         if(!this.state.game.length || this.state.curY === -1)
             return "Number of moves: " + counter;
 
-        const finalScore = computeWinner(this.state.sizeBoard, this.state.game,
-                                         this.state.curX, this.state.curY);
-
-        if(finalScore['xWin'])
+        if(this.state.finalScore['xWin'])
             return "X is the winner!";
-        if(finalScore['oWin'])
+        if(this.state.finalScore['oWin'])
             return "O is the winner!";
 
         for(let i=0; i<this.state.sizeBoard; i++){
