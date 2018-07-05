@@ -137,9 +137,6 @@ class BigTicTac extends React.Component{
         } else {
             return mainClass + ' square-dark'
         }
-
-
-        return (i+j) % 2 === 0 ? mainClass : mainClass + ' square-dark';
     }
 
     refreshBoard(){
@@ -190,7 +187,7 @@ class BigTicTac extends React.Component{
     }
 
     handleInputValue(event){
-        const maybeNumber = Number.parseInt(event.target.value);
+        const maybeNumber = Number.parseInt(event.target.value, 10);
         if(!isNaN(maybeNumber)){
             let inpValue = maybeNumber;
             this.setState({

@@ -107,6 +107,47 @@ function get_diag2(x, y, n){
     return [ax, ay, bx, by];
 }
 
+function get_row_or_column(x, n){
+    let [ax, bx] = [x, x];
+    for(let i=0; i<4; i++){
+        if(ax - 1 < 0)
+            break;
+        ax--;
+    }
+    for(let i=0; i<4; i++){
+        if(bx+1 >= n)
+            break;
+        bx++;
+    }
+    return [ax, bx];
+}
+
+function chek_X_O_null(game, first_arg, sec_arg){
+    let counterX = 0;
+    let counterO = 0;
+    let winnerXFields = [];
+    let winnerOFields = [];
+    if(game[first_arg][sec_arg] === 'X'){
+        counterX++;
+        counterO = 0;
+        winnerXFields.push([first_arg, sec_arg]);
+        winnerOFields = [];
+    }
+    else if(game[first_arg][sec_arg] === 'O') {
+        counterX = 0;
+        counterO++;
+        winnerXFields = [];
+        winnerOFields.push([first_arg, sec_arg]);
+    }
+    else{
+        counterX = 0;
+        counterO = 0;
+        winnerXFields = [];
+        winnerOFields = [];
+    }
+    return [counterX, counterO, winnerXFields, winnerOFields];
+}
+
 export function computeWinner(sizeBoard, game, curX, curY){
 
     /* compute winning on first diagonal */
@@ -117,24 +158,11 @@ export function computeWinner(sizeBoard, game, curX, curY){
     let winnerOFields = [];
 
     while(ax <= bx && ay <= by){
-        if(game[ax][ay] === 'X'){
-            counterX++;
-            counterO = 0;
-            winnerXFields.push([ax,ay]);
-            winnerOFields = [];
-        }
-        else if(game[ax][ay] === 'O') {
-            counterX = 0;
-            counterO++;
-            winnerXFields = [];
-            winnerOFields.push([ax,ay]);
-        }
-        else{
-            counterX = 0;
-            counterO = 0;
-            winnerXFields = [];
-            winnerOFields = [];
-        }
+        let x_o_null = chek_X_O_null(game, ax, ay);
+        counterX += x_o_null[0];
+        counterO += x_o_null[1];
+        winnerXFields = winnerXFields.concat(x_o_null[2]);
+        winnerOFields = winnerOFields.concat(x_o_null[3]);
 
         const hasWinner = check_counters(counterX, counterO,
                                          winnerXFields, winnerOFields);
@@ -152,24 +180,11 @@ export function computeWinner(sizeBoard, game, curX, curY){
     winnerOFields = [];
 
     while(ax <= bx && ay >= by){
-        if(game[ax][ay] === 'X'){
-            counterX++;
-            counterO = 0;
-            winnerXFields.push([ax,ay]);
-            winnerOFields = [];
-        }
-        else if(game[ax][ay] === 'O') {
-            counterX = 0;
-            counterO++;
-            winnerXFields = [];
-            winnerOFields.push([ax,ay]);
-        }
-        else{
-            counterX = 0;
-            counterO = 0;
-            winnerXFields = [];
-            winnerOFields = [];
-        }
+        let x_o_null = chek_X_O_null(game, ax, ay);
+        counterX += x_o_null[0];
+        counterO += x_o_null[1];
+        winnerXFields = winnerXFields.concat(x_o_null[2]);
+        winnerOFields = winnerOFields.concat(x_o_null[3]);
 
         const hasWinner = check_counters(counterX, counterO,
                                          winnerXFields, winnerOFields);
@@ -177,6 +192,47 @@ export function computeWinner(sizeBoard, game, curX, curY){
             return hasWinner;
         ax++;
         ay--;
+    }
+
+    /* compute winning on column */
+    [ax, bx] = get_row_or_column(curX, sizeBoard);
+    counterX = 0;
+    counterO = 0;
+    winnerXFields = [];
+    winnerOFields = [];
+    while(ax <= bx){
+        let x_o_null = chek_X_O_null(game, ax, curY);
+        counterX += x_o_null[0];
+        counterO += x_o_null[1];
+        winnerXFields = winnerXFields.concat(x_o_null[2]);
+        winnerOFields = winnerOFields.concat(x_o_null[3]);
+
+        const hasWinner = check_counters(counterX, counterO,
+                                         winnerXFields, winnerOFields);
+        if(hasWinner)
+            return hasWinner;
+        ax++;
+    }
+
+    /* compute winning on row */
+    [ax, bx] = get_row_or_column(curY, sizeBoard);
+    counterX = 0;
+    counterO = 0;
+    winnerXFields = [];
+    winnerOFields = [];
+    while(ax <= bx){
+        let x_o_null = chek_X_O_null(game, curX, ax);
+        counterX += x_o_null[0];
+        counterO += x_o_null[1];
+        winnerXFields = winnerXFields.concat(x_o_null[2]);
+        winnerOFields = winnerOFields.concat(x_o_null[3]);
+
+        const hasWinner = check_counters(counterX, counterO,
+                                         winnerXFields, winnerOFields);
+
+        if(hasWinner)
+            return hasWinner;
+        ax++;
     }
 
 
