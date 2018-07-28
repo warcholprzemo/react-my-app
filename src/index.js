@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import {Square, Board} from './game1'
+import {Square, Board} from './game1';
 import {SizeBoardInput, AcceptSizeButton, BigTicTacLabel,
-        computeWinner} from './game2'
+        computeWinner} from './game2';
+import {CinemaList} from './cinema';
 
 
 
@@ -261,6 +262,7 @@ class BattleField extends React.Component{
             <div className="battlefield">
                 <Game />
                 <BigTicTac />
+                <CinemaList />
             </div>
         );
     }

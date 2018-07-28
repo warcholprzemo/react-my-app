@@ -67,3 +67,11 @@ ol, ul{
 .mrg-top{
     margin-top:15px;
 }
+
+.cinema-list{
+    margin-top:15px;
+}
+.cinema-list > label {
+    font-size:15px;
+    font-weight:bold;
+}
