@@ -5,8 +5,29 @@ import {Square, Board} from './game1';
 import {SizeBoardInput, AcceptSizeButton, BigTicTacLabel,
         computeWinner} from './game2';
 import {CinemaList} from './cinema';
+import {SimpleForm} from './forms';
 
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 
+class Menu extends React.Component {
+    render(){
+        return (
+            <Router>
+                <div>
+                    <ul>
+                        <li><Link to="/">All games</Link></li>
+                        <li><Link to="/cinemas">Cinemas</Link></li>
+                        <li><Link to="/form">Simple form</Link></li>
+                    </ul>
+
+                    <Route exact path="/" component={AllGames} />
+                    <Route path="/cinemas" component={CinemaList} />
+                    <Route path="/form" component={SimpleForm} />
+                </div>
+            </Router>
+        );
+    }
+}
 
 class Game extends React.Component{
     //Add history of moves
@@ -256,13 +277,22 @@ class BigTicTac extends React.Component{
     }
 }
 
+class AllGames extends React.Component{
+    render(){
+        return (
+            <div>
+                <Game />
+                <BigTicTac />
+            </div>
+        );
+    }
+}
+
 class BattleField extends React.Component{
     render(){
         return(
             <div className="battlefield">
-                <Game />
-                <BigTicTac />
-                <CinemaList />
+                <Menu />
             </div>
         );
     }

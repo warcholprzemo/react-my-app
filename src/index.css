@@ -75,3 +75,12 @@ ol, ul{
     font-size:15px;
     font-weight:bold;
 }
+.simple-form label{
+    display: block;
+}
+#simple-form-debug-box{
+    margin-top:10px;
+}
+#simple-form-debug-box > div{
+    color: #f00;
+}
