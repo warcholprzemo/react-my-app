@@ -7,7 +7,7 @@ export class SimpleForm extends React.Component {
         super();
         this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
-            debug: ''
+            debug: []
         }
     }
 
@@ -22,7 +22,7 @@ export class SimpleForm extends React.Component {
         .then((response) => {
             if(response.status === 404){
                 this.setState({
-                    debug: 'Response status: 404'
+                    debug: ['Response status: 404']
                 });
                 return {};
             } else {
@@ -30,7 +30,13 @@ export class SimpleForm extends React.Component {
             }
         })
         .then((responseJson) => {
-            console.log("Resp.json:", responseJson);
+            let msg = ["[OK; Data from backend]"];
+            for(let key in responseJson)
+                msg.push(key + ": " + responseJson[key]);
+
+            this.setState({
+                debug: msg,
+            });
         })
         .catch((error) => {
             console.error(error);
@@ -45,17 +51,18 @@ export class SimpleForm extends React.Component {
                       action="http://localhost:8000/processform/">
                     <p>
                         <label>Some text</label>
-                        <input type="text" defaultValue="abc" />
+                        <input type="text" defaultValue="abc" name="sometext" />
                     </p>
 
                     <p>
                         <label>Some number</label>
-                        <input type="number" defaultValue="13" />
+                        <input type="number" defaultValue="13" name="somenumber" />
                     </p>
 
                     <p>
-                        <label>Some checkbox</label>
-                        <input type="checkbox" defaultChecked="checked" />
+                        <label htmlFor="somecheckbox">Some checkbox</label>
+                        <input type="checkbox" defaultChecked="checked"
+                               id="somecheckbox" name="somecheckbox" />
                     </p>
 
                     <input type="submit" />
@@ -64,7 +71,7 @@ export class SimpleForm extends React.Component {
 
                 <div id="simple-form-debug-box">
                     <label>Debug</label>
-                    <div>{this.state.debug}</div>
+                    <div>{this.state.debug.map((row, index) => <div key={"response-row-"+index}>{row}</div> )}</div>
                 </div>
             </div>
         );
