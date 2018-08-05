@@ -6,6 +6,7 @@ import {SizeBoardInput, AcceptSizeButton, BigTicTacLabel,
         computeWinner} from './game2';
 import {CinemaList} from './cinema';
 import {SimpleForm} from './forms';
+import {SomeDataList} from './somedatalist';
 
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 
@@ -18,11 +19,13 @@ class Menu extends React.Component {
                         <li><Link to="/">All games</Link></li>
                         <li><Link to="/cinemas">Cinemas</Link></li>
                         <li><Link to="/form">Simple form</Link></li>
+                        <li><Link to="/somedatalist">SomeData list</Link></li>
                     </ul>
 
                     <Route exact path="/" component={AllGames} />
                     <Route path="/cinemas" component={CinemaList} />
                     <Route path="/form" component={SimpleForm} />
+                    <Route path="/somedatalist" component={SomeDataList} />
                 </div>
             </Router>
         );

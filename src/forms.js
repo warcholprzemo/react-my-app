@@ -22,20 +22,31 @@ export class SimpleForm extends React.Component {
         .then((response) => {
             if(response.status === 404){
                 this.setState({
-                    debug: ['Response status: 404']
+                    debug: ['[Response status: 404]']
                 });
                 return {};
-            } else {
+            }
+            else if(response.status === 500){
+                this.setState({
+                    debug: ['[Critical error: 500]']
+                });
+                return response.json();
+            }
+            else {
+                this.setState({
+                    debug: ["[OK; Data from backend]"],
+                });
                 return response.json();
             }
         })
         .then((responseJson) => {
-            let msg = ["[OK; Data from backend]"];
+            let msg = [];
             for(let key in responseJson)
                 msg.push(key + ": " + responseJson[key]);
 
+            let curr_debug = this.state.debug;
             this.setState({
-                debug: msg,
+                debug: curr_debug.concat(msg),
             });
         })
         .catch((error) => {
