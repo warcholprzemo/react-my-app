@@ -29,10 +29,26 @@ export class SizeBoardInput extends React.Component{
     }
 }
 
-export class AcceptSizeButton extends React.Component{
+export class PlayerName extends React.Component{
+    constructor(props){
+        super(props);
+        this.refToInput = React.createRef();
+    }
+
     render(){
         return(
-            <input type="submit" value="Generate" onClick={() => this.props.onClick()} />
+            <div>
+                <label htmlFor={this.props.customName}>{ this.props.customLabel }</label>
+                <input type="text" name={this.props.customName} ref={this.refToInput} defaultValue={this.props.defaultValue} />
+            </div>
+        );
+    }
+}
+
+export class ActionButton extends React.Component{
+    render(){
+        return(
+            <input type="submit" value={this.props.buttonValue} onClick={() => this.props.onClick()} />
         );
     }
 }

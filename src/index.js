@@ -2,8 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import {Square, Board} from './game1';
-import {SizeBoardInput, AcceptSizeButton, BigTicTacLabel,
-        computeWinner} from './game2';
+import {SizeBoardInput, ActionButton, BigTicTacLabel, PlayerName, computeWinner} from './game2';
 import {CinemaList} from './cinema';
 import {SimpleForm} from './forms';
 import {SomeDataList} from './somedatalist';
@@ -144,6 +143,10 @@ class BigTicTac extends React.Component{
             },
         };
         this.setBigTicTacLabel = this.setBigTicTacLabel.bind(this);
+
+        this.refPlayer1 = React.createRef();
+        this.refPlayer2 = React.createRef();
+        this.printPlayers = this.printPlayers.bind(this);
     }
 
     getSquareClass(i, j){
@@ -162,6 +165,11 @@ class BigTicTac extends React.Component{
         } else {
             return mainClass + ' square-dark'
         }
+    }
+
+    printPlayers(){
+        console.log("Player1 value:" + this.refPlayer1.current.refToInput.current.value);
+        console.log("Player2 value:" + this.refPlayer2.current.refToInput.current.value);
     }
 
     refreshBoard(){
@@ -267,9 +275,17 @@ class BigTicTac extends React.Component{
         return(
             <div className="game">
                 <div className="input-field">
+                    {/* Get names of player by refs. Not beauty but works. I just learn next things */}
+                    {/* BTW. this is way for writing comments in JSX */}
+                    <PlayerName defaultValue="Ziutek" customName="player1" customLabel="Player 1 name" ref={this.refPlayer1} />
+                    <PlayerName defaultValue="Kajtek" customName="player2" customLabel="Player 2 name" ref={this.refPlayer2} />
+                    <ActionButton buttonValue="[debug] Print players in console" onClick={this.printPlayers}/>
+                    <br />
+                    <br />
+
                     <label>Setup size of go-board. Range [2; 20], default 10</label>
                     <SizeBoardInput onChange={event => this.handleInputValue(event)} />
-                    <AcceptSizeButton onClick={() => this.handleButtonClick() }/>
+                    <ActionButton buttonValue="Generate" onClick={() => this.handleButtonClick() }/>
                     <div className="mrg-top">
                         {this.state.rows}
                     </div>
