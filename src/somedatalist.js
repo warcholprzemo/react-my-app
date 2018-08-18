@@ -47,7 +47,7 @@ export class SomeDataList extends React.Component{
                 if(i === 0){
                     column_labels.push(
                         <th key={ 'column_label-' + key }>
-                            { key.toString }
+                            { key.toString() }
                         </th>
                     );
                 }
