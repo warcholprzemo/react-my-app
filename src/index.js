@@ -229,6 +229,34 @@ class BigTicTac extends React.Component{
         }
     }
 
+    save_game_in_db(){
+        const xWin = this.state.finalScore.xWin;
+        const oWin = this.state.finalScore.oWin;
+
+        if(!oWin && !xWin)
+            return;
+
+        const data = {
+            playerX: this.refPlayer1.current.refToInput.current.value,
+            playerO: this.refPlayer2.current.refToInput.current.value,
+            result: xWin ? -1 : 1, /* TODO: Check tie */
+        }
+        const formData = new FormData();
+        Object.keys(data).forEach(key => formData.append(key, data[key]));
+
+        fetch('http://localhost:8000/tictactoe/saveresult/', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            return response.json();
+        })
+        .then(responseJson => {
+            console.log("THERE IS OK", responseJson);
+            /* TODO: Add a message on UI */
+        });
+    }
+
     justClick(i,j){
         const xNext = this.state.xNext;
         let game = this.state.game;
@@ -239,6 +267,8 @@ class BigTicTac extends React.Component{
             const finalScore = computeWinner(this.state.sizeBoard, game, i, j);
             this.setState({
                 finalScore: finalScore,
+            }, () => {
+                this.save_game_in_db();
             });
         }
 
@@ -277,8 +307,8 @@ class BigTicTac extends React.Component{
                 <div className="input-field">
                     {/* Get names of player by refs. Not beauty but works. I just learn next things */}
                     {/* BTW. this is way for writing comments in JSX */}
-                    <PlayerName defaultValue="Ziutek" customName="player1" customLabel="Player 1 name" ref={this.refPlayer1} />
-                    <PlayerName defaultValue="Kajtek" customName="player2" customLabel="Player 2 name" ref={this.refPlayer2} />
+                    <PlayerName defaultValue="Ziutek" customName="player1" customLabel="Player X name" ref={this.refPlayer1} />
+                    <PlayerName defaultValue="Kajtek" customName="player2" customLabel="Player O name" ref={this.refPlayer2} />
                     <ActionButton buttonValue="[debug] Print players in console" onClick={this.printPlayers}/>
                     <br />
                     <br />
