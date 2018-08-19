@@ -61,6 +61,14 @@ export class BigTicTacLabel extends React.Component{
     }
 }
 
+export class HallOfFame extends React.Component{
+    render(){
+        return(
+            <div>Work in progress</div>
+        )
+    }
+}
+
 function check_counters(counterX, counterO, winnerXFields, winnerOFields){
     if(counterX === 5)
         return {

@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import {Square, Board} from './game1';
-import {SizeBoardInput, ActionButton, BigTicTacLabel, PlayerName, computeWinner} from './game2';
+import {SizeBoardInput, ActionButton, BigTicTacLabel,
+        PlayerName, computeWinner, HallOfFame} from './game2';
 import {CinemaList} from './cinema';
 import {SimpleForm} from './forms';
 import {SomeDataList} from './somedatalist';
@@ -19,12 +20,14 @@ class Menu extends React.Component {
                         <li><Link to="/cinemas">Cinemas</Link></li>
                         <li><Link to="/form">Simple form</Link></li>
                         <li><Link to="/somedatalist">SomeData list</Link></li>
+                        <li><Link to="/halloffame">TicTacToe: Hall of fame</Link></li>
                     </ul>
 
                     <Route exact path="/" component={AllGames} />
                     <Route path="/cinemas" component={CinemaList} />
                     <Route path="/form" component={SimpleForm} />
                     <Route path="/somedatalist" component={SomeDataList} />
+                    <Route path="/halloffame" component={HallOfFame} />
                 </div>
             </Router>
         );
