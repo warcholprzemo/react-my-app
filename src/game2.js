@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import {SomeDataList} from './somedatalist';
 
 export class SizeBoardInput extends React.Component{
     constructor(props){
@@ -64,7 +65,11 @@ export class BigTicTacLabel extends React.Component{
 export class HallOfFame extends React.Component{
     render(){
         return(
-            <div>Work in progress</div>
+            <div>
+                <SomeDataList endpoint_url='http://localhost:8000/tictactoe/allgames/'
+                              custom_label='Hall of fame'
+                />
+            </div>
         )
     }
 }

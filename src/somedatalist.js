@@ -15,7 +15,7 @@ export class SomeDataList extends React.Component{
     }
 
     fillObjectList(){
-        fetch('http://localhost:8000/some-data-list/', {
+        fetch(this.props.endpoint_url, {
             method: 'GET',
         })
         .then(response => {
@@ -61,7 +61,8 @@ export class SomeDataList extends React.Component{
         }
         return(
             <div className="cinema-list">
-                <label>List of somedata</label>
+                <div>endpoint_url {this.props.endpoint_url}</div>
+                <label>List of {this.props.custom_label}</label>
                 <table>
                     <thead>
                         <tr>

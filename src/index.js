@@ -26,7 +26,11 @@ class Menu extends React.Component {
                     <Route exact path="/" component={AllGames} />
                     <Route path="/cinemas" component={CinemaList} />
                     <Route path="/form" component={SimpleForm} />
-                    <Route path="/somedatalist" component={SomeDataList} />
+                    <Route path="/somedatalist" render={(props) =>
+                        <SomeDataList endpoint_url='http://localhost:8000/some-data-list/'
+                                      custom_label='somedata'
+                                      {...props} />
+                    }/>
                     <Route path="/halloffame" component={HallOfFame} />
                 </div>
             </Router>
