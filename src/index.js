@@ -10,33 +10,40 @@ import {SomeDataList} from './somedatalist';
 
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 
-class Menu extends React.Component {
+import Logo from './images/logo.png';
+
+class BaseStructure extends React.Component {
     render(){
         return (
             <Router>
-                <div>
-                    <ul>
-                        <li><Link to="/">All games</Link></li>
-                        <li><Link to="/cinemas">Cinemas</Link></li>
-                        <li><Link to="/form">Simple form</Link></li>
-                        <li><Link to="/somedatalist">SomeData list</Link></li>
-                        <li><Link to="/halloffame">TicTacToe: Hall of fame</Link></li>
-                    </ul>
-
-                    <Route exact path="/" component={AllGames} />
-                    <Route path="/cinemas" component={CinemaList} />
-                    <Route path="/form" component={SimpleForm} />
-                    <Route path="/somedatalist" render={(props) =>
-                        <SomeDataList endpoint_url='http://localhost:8000/some-data-list/'
-                                      custom_label='somedata'
-                                      {...props} />
-                    }/>
-                    <Route path="/halloffame" component={HallOfFame} />
+                <div id="root-inside">
+                    <div id="menu">
+                        <img src={Logo} alt="logo" title="logo" className="menu-logo" />
+                        <ul id="menu-ul">
+                            <li><Link to="/">⇨ All games</Link></li>
+                            <li><Link to="/cinemas">⇨ Cinemas</Link></li>
+                            <li><Link to="/form">⇨ Simple form</Link></li>
+                            <li><Link to="/somedatalist">⇨ SomeData list</Link></li>
+                            <li><Link to="/halloffame">⇨ TicTacToe: Hall of fame</Link></li>
+                        </ul>
+                    </div>
+                    <div id="content">
+                        <Route exact path="/" component={AllGames} />
+                        <Route path="/cinemas" component={CinemaList} />
+                        <Route path="/form" component={SimpleForm} />
+                        <Route path="/somedatalist" render={(props) =>
+                            <SomeDataList endpoint_url='http://localhost:8000/some-data-list/'
+                                          custom_label='somedata'
+                                          {...props} />
+                        }/>
+                        <Route path="/halloffame" component={HallOfFame} />
+                    </div>
                 </div>
             </Router>
         );
     }
 }
+
 
 class Game extends React.Component{
     //Add history of moves
@@ -314,14 +321,17 @@ class BigTicTac extends React.Component{
                 <div className="input-field">
                     {/* Get names of player by refs. Not beauty but works. I just learn next things */}
                     {/* BTW. this is way for writing comments in JSX */}
-                    <PlayerName defaultValue="Ziutek" customName="player1" customLabel="Player X name" ref={this.refPlayer1} />
-                    <PlayerName defaultValue="Kajtek" customName="player2" customLabel="Player O name" ref={this.refPlayer2} />
-                    <ActionButton buttonValue="[debug] Print players in console" onClick={this.printPlayers}/>
-                    <br />
-                    <br />
-
-                    <label>Setup size of go-board. Range [2; 20], default 10</label>
-                    <SizeBoardInput onChange={event => this.handleInputValue(event)} />
+                    <table>
+                        <PlayerName defaultValue="Ziutek" customName="player1" customLabel="Player X name" ref={this.refPlayer1} />
+                        <PlayerName defaultValue="Kajtek" customName="player2" customLabel="Player O name" ref={this.refPlayer2} />
+                        {/* <ActionButton buttonValue="[debug] Print players in console" onClick={this.printPlayers}/> */}
+                        {/* <br /> */}
+                        {/* <br /> */}
+                        <tr>
+                            <td><label title="Range [2; 20], default 10">Setup size of board.</label></td>
+                            <td><SizeBoardInput onChange={event => this.handleInputValue(event)} /></td>
+                        </tr>
+                    </table>
                     <ActionButton buttonValue="Generate" onClick={() => this.handleButtonClick() }/>
                     <div className="mrg-top">
                         {this.state.rows}
@@ -337,22 +347,17 @@ class AllGames extends React.Component{
     render(){
         return (
             <div>
+                <h1>All games</h1>
+                <h2>Elementary Tic Tac Toe (3x3)</h2>
                 <Game />
+                <h2>Big Tic Tac Toe (NxN)</h2>
                 <BigTicTac />
             </div>
         );
     }
 }
 
-class BattleField extends React.Component{
-    render(){
-        return(
-            <div className="battlefield">
-                <Menu />
-            </div>
-        );
-    }
-}
+
 
 
 // --- Helper function
@@ -399,7 +404,8 @@ function calculateTie(squares){
     return counter === 9;
 }
 
+
 ReactDOM.render(
-    <BattleField />,
+    <BaseStructure />,
     document.getElementById('root')
 );

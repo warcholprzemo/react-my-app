@@ -27,7 +27,6 @@ export class CinemaList extends React.Component{
 
     render(){
         let html_cinema_list = [];
-        console.log("cinemas", this.state.cinemas);
         for(let i=0; i<this.state.cinemas.length; i++){
             let cinema = this.state.cinemas[i];
             let cinema_key = "cinema-" + i;
@@ -41,6 +40,7 @@ export class CinemaList extends React.Component{
         }
         return(
             <div className="cinema-list">
+                <h1>Cinemas</h1>
                 <label>List of cinemas from django-api</label>
                 <table>
                     <thead>

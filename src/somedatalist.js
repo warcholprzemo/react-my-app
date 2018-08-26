@@ -61,6 +61,7 @@ export class SomeDataList extends React.Component{
         }
         return(
             <div className="cinema-list">
+                <h1>{this.props.custom_label} List</h1>
                 <div>endpoint_url {this.props.endpoint_url}</div>
                 <label>List of {this.props.custom_label}</label>
                 <table>

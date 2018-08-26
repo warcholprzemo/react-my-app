@@ -57,6 +57,7 @@ export class SimpleForm extends React.Component {
     render(){
         return (
             <div>
+                <h1>Simple Form</h1>
                 <form method="POST" className="simple-form"
                       onSubmit={this.handleSubmit}
                       action="http://localhost:8000/processform/">
@@ -76,7 +77,7 @@ export class SimpleForm extends React.Component {
                                id="somecheckbox" name="somecheckbox" />
                     </p>
 
-                    <input type="submit" />
+                    <input type="submit" value="Send form" />
 
                 </form>
 

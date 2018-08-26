@@ -38,10 +38,13 @@ export class PlayerName extends React.Component{
 
     render(){
         return(
-            <div>
-                <label htmlFor={this.props.customName}>{ this.props.customLabel }</label>
-                <input type="text" name={this.props.customName} ref={this.refToInput} defaultValue={this.props.defaultValue} />
-            </div>
+            <tr>
+                <td><label htmlFor={this.props.customName}>{ this.props.customLabel }</label></td>
+                <td><input type="text"
+                           name={this.props.customName}
+                           ref={this.refToInput}
+                           defaultValue={this.props.defaultValue} /></td>
+            </tr>
         );
     }
 }

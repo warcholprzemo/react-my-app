@@ -1,6 +1,67 @@
+html,body{
+    height:100%;
+}
 body{
+    background-color:#eee;
     font: 14px "Century Gothic", Futura, sans-serif;
     margin: 20px;
+}
+#root{
+  height:100%;
+}
+
+#root-inside{
+    display:flex;
+    flex-direction: row;
+    min-height:95%;
+    /* padding-bottom:20px; */
+}
+#root-inside > div{
+    padding: 0 15px;
+}
+
+#menu{
+    background-color:#000;
+    flex:1;
+}
+
+.menu-logo{
+    width:250px;
+    margin-top:15px;
+}
+
+#menu-ul{
+    list-style:none;
+    padding-left:0;
+}
+#menu-ul > li{
+    padding: 3px 5px;
+    background-color: #000;
+    color: #fff;
+    font-size:17px;
+    display:block;
+}
+#menu-ul > li > a{
+    text-decoration:none;
+}
+#menu-ul > li > a:visited{
+    background-color: #000;
+    color: #fff;
+}
+#menu-ul > li:hover, #menu-ul > li:hover > a{
+    background-color: #111;
+    color: #0ee !important;
+}
+#content{
+    flex:6;
+    background-color: #e0ffe8;
+}
+
+
+
+
+body{
+
 }
 ol, ul{
     padding-left: 30px;
