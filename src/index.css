@@ -43,6 +43,7 @@ body{
 }
 #menu-ul > li > a{
     text-decoration:none;
+    color: #fff;
 }
 #menu-ul > li > a:visited{
     background-color: #000;
@@ -58,11 +59,6 @@ body{
 }
 
 
-
-
-body{
-
-}
 ol, ul{
     padding-left: 30px;
 }
@@ -144,4 +140,22 @@ ol, ul{
 }
 #simple-form-debug-box > div{
     color: #f00;
+}
+.debug{
+    color: #eee;
+    background-color: black;
+    margin: 15px 0;
+    display: inline-block;
+    padding: 8px;
+}
+.debug::before {
+    content: "DEBUG: ";
+}
+.debug > a{
+    text-decoration:none;
+    color: yellow;
+}
+.debug > a:visited{
+    background-color: #000;
+    color: yellow;
 }

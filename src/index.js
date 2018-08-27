@@ -322,15 +322,17 @@ class BigTicTac extends React.Component{
                     {/* Get names of player by refs. Not beauty but works. I just learn next things */}
                     {/* BTW. this is way for writing comments in JSX */}
                     <table>
-                        <PlayerName defaultValue="Ziutek" customName="player1" customLabel="Player X name" ref={this.refPlayer1} />
-                        <PlayerName defaultValue="Kajtek" customName="player2" customLabel="Player O name" ref={this.refPlayer2} />
-                        {/* <ActionButton buttonValue="[debug] Print players in console" onClick={this.printPlayers}/> */}
-                        {/* <br /> */}
-                        {/* <br /> */}
-                        <tr>
-                            <td><label title="Range [2; 20], default 10">Setup size of board.</label></td>
-                            <td><SizeBoardInput onChange={event => this.handleInputValue(event)} /></td>
-                        </tr>
+                        <tbody>
+                            <PlayerName defaultValue="Ziutek" customName="player1" customLabel="Player X name" ref={this.refPlayer1} />
+                            <PlayerName defaultValue="Kajtek" customName="player2" customLabel="Player O name" ref={this.refPlayer2} />
+                            {/* <ActionButton buttonValue="[debug] Print players in console" onClick={this.printPlayers}/> */}
+                            {/* <br /> */}
+                            {/* <br /> */}
+                            <tr>
+                                <td><label title="Range [2; 20], default 10">Setup size of board.</label></td>
+                                <td><SizeBoardInput onChange={event => this.handleInputValue(event)} /></td>
+                            </tr>
+                        </tbody>
                     </table>
                     <ActionButton buttonValue="Generate" onClick={() => this.handleButtonClick() }/>
                     <div className="mrg-top">

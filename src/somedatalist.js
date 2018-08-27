@@ -33,9 +33,8 @@ export class SomeDataList extends React.Component{
         let column_labels = [];
         for(let i=0; i<this.state.object_list.length; i++){
             let next_object = this.state.object_list[i];
-            console.log(next_object);
-
             let columns = [];
+
             for(let key in next_object){
                 if (next_object.hasOwnProperty(key)) {
                     columns.push(
@@ -62,8 +61,7 @@ export class SomeDataList extends React.Component{
         return(
             <div className="cinema-list">
                 <h1>{this.props.custom_label} List</h1>
-                <div>endpoint_url {this.props.endpoint_url}</div>
-                <label>List of {this.props.custom_label}</label>
+                {/* <label>List of {this.props.custom_label}</label> */}
                 <table>
                     <thead>
                         <tr>
@@ -74,6 +72,9 @@ export class SomeDataList extends React.Component{
                         {html_rows}
                     </tbody>
                 </table>
+                <div className="debug">
+                    endpoint_url <a href={this.props.endpoint_url}>{this.props.endpoint_url}</a>
+                </div>
             </div>
         );
     }
