@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-
+import {SomeDataList} from './somedatalist'
 import axios from 'axios';
+import {Link} from 'react-router-dom';
 
 export class CinemaList extends React.Component{
     constructor(props){
@@ -33,7 +34,9 @@ export class CinemaList extends React.Component{
             html_cinema_list.push(
                 <tr key={ cinema_key }>
                     <td>{ cinema['id'] }</td>
-                    <td>{ cinema['name'] }</td>
+                    <td>
+                        <Link to={`/cinemas/${cinema['id']}`} >{ cinema['name'] }</Link>
+                    </td>
                     <td>{ cinema['address'] }</td>
                 </tr>
             );
@@ -56,5 +59,21 @@ export class CinemaList extends React.Component{
                 </table>
             </div>
         );
+    }
+}
+
+
+export class CinemaEdit extends React.Component{
+    render(){
+        const endpoint_url='http://localhost:8000/multiplex/cinemas/' + this.props.match.params.id +"/";
+        return(
+            <div>
+                <SomeDataList endpoint_url={endpoint_url}
+                              custom_label='Cinema detail'
+                              pack_object_to_list={() => true}
+
+                />
+            </div>
+        )
     }
 }

@@ -4,7 +4,7 @@ import './index.css';
 import {Square, Board} from './game1';
 import {SizeBoardInput, ActionButton, BigTicTacLabel,
         PlayerName, computeWinner, HallOfFame} from './game2';
-import {CinemaList} from './cinema';
+import {CinemaList, CinemaEdit} from './cinema';
 import {SimpleForm} from './forms';
 import {SomeDataList} from './somedatalist';
 
@@ -29,7 +29,8 @@ class BaseStructure extends React.Component {
                     </div>
                     <div id="content">
                         <Route exact path="/" component={AllGames} />
-                        <Route path="/cinemas" component={CinemaList} />
+                        <Route exact path="/cinemas" component={CinemaList} /> {/* EXACT !!! */}
+                        <Route path="/cinemas/:id" component={CinemaEdit}  />
                         <Route path="/form" component={SimpleForm} />
                         <Route path="/somedatalist" render={(props) =>
                             <SomeDataList endpoint_url='http://localhost:8000/some-data-list/'

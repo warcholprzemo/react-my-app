@@ -22,8 +22,12 @@ export class SomeDataList extends React.Component{
             return response.json();
         })
         .then(response_json => {
+            let resp_object_list = response_json;
+            if(this.props.pack_object_to_list()){
+                resp_object_list = [response_json];
+            }
             this.setState({
-                object_list: response_json,
+                object_list: resp_object_list,
             });
         });
     }
@@ -37,9 +41,13 @@ export class SomeDataList extends React.Component{
 
             for(let key in next_object){
                 if (next_object.hasOwnProperty(key)) {
+                    let next_value = next_object[key];
+                    if(next_value !== null)
+                        next_value = next_value.toString();
+
                     columns.push(
                         <td key={ 'column-' + key }>
-                            { next_object[key].toString() }
+                            { next_value }
                         </td>
                     )
                 }
@@ -60,7 +68,7 @@ export class SomeDataList extends React.Component{
         }
         return(
             <div className="cinema-list">
-                <h1>{this.props.custom_label} List</h1>
+                <h1>{this.props.custom_label}</h1>
                 {/* <label>List of {this.props.custom_label}</label> */}
                 <table>
                     <thead>
@@ -78,4 +86,8 @@ export class SomeDataList extends React.Component{
             </div>
         );
     }
+}
+
+SomeDataList.defaultProps = {
+    pack_object_to_list: () => false
 }

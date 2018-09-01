@@ -149,8 +149,8 @@ ol, ul{
 .debug{
     color: #eee;
     background-color: black;
-    margin: 15px 0;
-    display: inline-block;
+    margin: 15px auto;
+    display: table;
     padding: 8px;
 }
 .debug::before {
