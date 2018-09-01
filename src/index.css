@@ -59,6 +59,11 @@ body{
 }
 
 
+/* CUSTOM STYLES */
+.game1-table{
+    margin: initial;
+}
+
 ol, ul{
     padding-left: 30px;
 }

@@ -321,7 +321,7 @@ class BigTicTac extends React.Component{
                 <div className="input-field">
                     {/* Get names of player by refs. Not beauty but works. I just learn next things */}
                     {/* BTW. this is way for writing comments in JSX */}
-                    <table>
+                    <table className="game1-table">
                         <tbody>
                             <PlayerName defaultValue="Ziutek" customName="player1" customLabel="Player X name" ref={this.refPlayer1} />
                             <PlayerName defaultValue="Kajtek" customName="player2" customLabel="Player O name" ref={this.refPlayer2} />

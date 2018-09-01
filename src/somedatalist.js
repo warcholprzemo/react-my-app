@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './somedatalist.css';
 
 export class SomeDataList extends React.Component{
     constructor(props){
