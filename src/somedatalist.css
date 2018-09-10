@@ -64,3 +64,11 @@ td:last-child {
     border-right: 1px solid #e8e8e8;
     box-shadow: inset -1px 0 0 #fff;
 }
+.maybeError{
+    color: red;
+    font-weight: bold;
+    margin: 15px auto;
+    display: table;
+    background-color: black;
+    padding: 8px;
+}

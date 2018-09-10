@@ -7,6 +7,7 @@ export class SomeDataList extends React.Component{
         super(props);
         this.state = {
             object_list: [],
+            maybeError: "",
         }
     }
 
@@ -19,6 +20,11 @@ export class SomeDataList extends React.Component{
             method: 'GET',
         })
         .then(response => {
+            if(response.status === 404 || response.status == 500){
+                var error = new Error(response.statusText);
+                error.response = response;
+                throw error;
+            }
             return response.json();
         })
         .then(response_json => {
@@ -28,6 +34,11 @@ export class SomeDataList extends React.Component{
             }
             this.setState({
                 object_list: resp_object_list,
+            });
+        })
+        .catch(error => {
+            this.setState({
+                maybeError: error.toString(),
             });
         });
     }
@@ -83,6 +94,7 @@ export class SomeDataList extends React.Component{
                 <div className="debug">
                     endpoint_url <a href={this.props.endpoint_url}>{this.props.endpoint_url}</a>
                 </div>
+                <div className="maybeError">{this.state.maybeError}</div>
             </div>
         );
     }
