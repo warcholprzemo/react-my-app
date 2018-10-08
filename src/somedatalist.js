@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import './somedatalist.css';
 
 export class SomeDataList extends React.Component{
@@ -20,7 +19,7 @@ export class SomeDataList extends React.Component{
             method: 'GET',
         })
         .then(response => {
-            if(response.status === 404 || response.status == 500){
+            if(response.status === 404 || response.status === 500){
                 var error = new Error(response.statusText);
                 error.response = response;
                 throw error;

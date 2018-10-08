@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import './index.css';
 
 export class SimpleForm extends React.Component {
@@ -15,7 +14,7 @@ export class SimpleForm extends React.Component {
         event.preventDefault();
         const data = new FormData(event.target); //event.target !!
 
-        fetch('http://localhost:8000/processform/', {
+        fetch('http://localhost:8000/api/processform/', {
             method: 'POST',
             body: data,
         })
@@ -60,7 +59,7 @@ export class SimpleForm extends React.Component {
                 <h1>Simple Form</h1>
                 <form method="POST" className="simple-form"
                       onSubmit={this.handleSubmit}
-                      action="http://localhost:8000/processform/">
+                      action="http://localhost:8000/api/processform/">
                     <p>
                         <label>Some text</label>
                         <input type="text" defaultValue="abc" name="sometext" />

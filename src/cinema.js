@@ -1,8 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import './index.css';
 import {SomeDataList} from './somedatalist'
-import axios from 'axios';
 import {Link} from 'react-router-dom';
 
 export class CinemaList extends React.Component{
@@ -18,12 +16,18 @@ export class CinemaList extends React.Component{
     }
 
     fillCinemas(){
-        axios.get('http://localhost:8000/multiplex/cinemas/')
-            .then(resp => {
-                this.setState({
-                    cinemas: resp.data
-                });
+        fetch('http://localhost:8000/api/multiplex/cinemas/', {
+            method: 'GET',
+        })
+        .then(response => {
+            return response.json();
+        })
+        .then(responseJson => {
+            console.log("responseJson", responseJson);
+            this.setState({
+                cinemas: responseJson, //.data
             });
+        })
     }
 
     render(){
@@ -65,7 +69,7 @@ export class CinemaList extends React.Component{
 
 export class CinemaEdit extends React.Component{
     render(){
-        const endpoint_url='http://localhost:8000/multiplex/cinemas/' + this.props.match.params.id +"/";
+        const endpoint_url='http://localhost:8000/api/multiplex/cinemas/' + this.props.match.params.id +"/";
         return(
             <div>
                 <SomeDataList endpoint_url={endpoint_url}
