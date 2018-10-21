@@ -68,7 +68,7 @@ export class HallOfFame extends React.Component{
     render(){
         return(
             <div>
-                <SomeDataList endpoint_url='http://localhost:8000/api/tictactoe/allgames/'
+                <SomeDataList endpoint_url={API_URL + '/api/tictactoe/allgames/'}
                               custom_label='Hall of fame'
                 />
             </div>

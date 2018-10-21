@@ -33,7 +33,7 @@ class BaseStructure extends React.Component {
                         <Route path="/cinemas/:id" component={CinemaEdit}  />
                         <Route path="/form" component={SimpleForm} />
                         <Route path="/somedatalist" render={(props) =>
-                            <SomeDataList endpoint_url='http://localhost:8000/api/some-data-list/'
+                            <SomeDataList endpoint_url= {API_URL + '/api/some-data-list/'}
                                           custom_label='somedata'
                                           {...props} />
                         }/>
@@ -259,7 +259,7 @@ class BigTicTac extends React.Component{
         const formData = new FormData();
         Object.keys(data).forEach(key => formData.append(key, data[key]));
 
-        fetch('http://localhost:8000/api/tictactoe/saveresult/', {
+        fetch(API_URL + '/api/tictactoe/saveresult/', {
             method: 'POST',
             body: formData
         })
