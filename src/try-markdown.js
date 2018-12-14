@@ -40,7 +40,7 @@ export class BlogDetail extends React.Component{
                     <ReactMarkdown source={ this.state.blog.content } />
                 </div>
                 <div className="debug">
-                    endpoint_url <a href={this.props.endpoint_url}>{this.props.endpoint_url}</a>
+                    endpoint_url <a href={this.state.remote_url}>{this.state.remote_url}</a>
                 </div>
             </div>
         );
