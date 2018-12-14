@@ -41,7 +41,7 @@ class BaseStructure extends React.Component {
                         }/>
                         <Route path="/halloffame" component={HallOfFame} />
                         <Route exact path="/blog" component={BlogList} />
-                        <Route exact path="/blog/:id" component={BlogDetail} />
+                        <Route path="/blog/:id" component={BlogDetail} />
                     </div>
                 </div>
             </Router>
