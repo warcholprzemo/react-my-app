@@ -3,6 +3,8 @@ import './try-markdown.css';
 import {Link} from 'react-router-dom';
 const ReactMarkdown = require('react-markdown');
 
+import {Helmet} from 'react-helmet';
+
 function ShowInstanceLink(props){
     const instance = props.instance;
     if(instance){
@@ -54,6 +56,9 @@ export class BlogDetail extends React.Component{
     render(){
         return(
             <div>
+                <Helmet>
+                    <title>{ `Smupro - Blog: ` + this.state.blog.title }</title>
+                </Helmet>
                 <h1>{ this.state.blog.title }</h1>
                 <div>
                     <span className="navigation-link"><ShowInstanceLink instance={this.state.prev_blog} /></span>
@@ -117,6 +122,9 @@ export class BlogList extends React.Component{
         }
         return(
             <div>
+                <Helmet>
+                    <title>Smupro - Blog</title>
+                </Helmet>
                 <h1>Lista wpisów</h1>
                 <table>
                     <thead>

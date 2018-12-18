@@ -1,6 +1,7 @@
 import React from 'react';
 import './index.css';
 import {SomeDataList} from './somedatalist';
+import {Helmet} from 'react-helmet';
 
 export class SizeBoardInput extends React.Component{
     constructor(props){
@@ -68,6 +69,9 @@ export class HallOfFame extends React.Component{
     render(){
         return(
             <div>
+                <Helmet>
+                    <title>Smupro - Hall of fame</title>
+                </Helmet>
                 <SomeDataList endpoint_url={API_URL + '/api/tictactoe/allgames/'}
                               custom_label='Hall of fame'
                 />

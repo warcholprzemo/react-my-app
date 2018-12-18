@@ -10,14 +10,19 @@ import {SomeDataList} from './somedatalist';
 import {BlogDetail, BlogList} from './try-markdown';
 
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import {Helmet} from 'react-helmet';
 
 import Logo from './images/logo.png';
+
 
 class BaseStructure extends React.Component {
     render(){
         return (
             <Router>
                 <div id="root-inside">
+                    <Helmet>
+                        <title>Smupro</title>
+                    </Helmet>
                     <div id="menu">
                         <img src={Logo} alt="logo" title="logo" className="menu-logo" />
                         <ul id="menu-ul">
