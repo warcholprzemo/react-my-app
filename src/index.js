@@ -8,6 +8,7 @@ import {CinemaList, CinemaEdit} from './cinema';
 import {SimpleForm} from './forms';
 import {SomeDataList} from './somedatalist';
 import {BlogDetail, BlogList} from './try-markdown';
+import {MyImageCreate, MyImageList} from './myimage';
 
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import {Helmet} from 'react-helmet';
@@ -31,6 +32,7 @@ class BaseStructure extends React.Component {
                             <li><Link to="/form">⇨ Simple form</Link></li>
                             <li><Link to="/somedatalist">⇨ SomeData list</Link></li>
                             <li><Link to="/halloffame">⇨ TicTacToe: Hall of fame</Link></li>
+                            <li><Link to="/myimage/create">⇨ Upload image [Test]</Link></li>
                             <li><Link to="/blog">⇨ Blog [PL]</Link></li>
                         </ul>
                     </div>
@@ -46,6 +48,8 @@ class BaseStructure extends React.Component {
                         }/>
                         <Route path="/halloffame" component={HallOfFame} />
                         <Route exact path="/blog" component={BlogList} />
+                        <Route path="/myimage/create" component={MyImageCreate} />
+                        <Route path="/myimage/list" component={MyImageList} />
                         <Route path="/blog/:id" component={BlogDetail} />
                     </div>
                 </div>
