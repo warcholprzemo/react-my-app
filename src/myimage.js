@@ -1,12 +1,70 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
+import './myimage.css';
+
 
 export class MyImageList extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            images: []
+        };
+    }
+
+    componentDidMount(){
+        this.fillGallery();
+    }
+
+    fillGallery(){
+        fetch(API_URL + "/api/myimage/list", {
+            method: 'GET'
+        })
+        .then(response => {
+            return response.json();
+        })
+        .then(response_json => {
+            this.setState({
+                images: response_json
+            });
+        });
+    }
+
     render(){
+        let rows = [];
+        for(let i=0; i<this.state.images.length; i++){
+            const image=this.state.images[i];
+            rows.push(
+                <tr key={image.id}>
+                    <td>
+                        <a href={image.image}>{image.image}</a>
+                    </td>
+                    <td>
+                        <img src={image.image} title={image.image} />
+                    </td>
+                    <td>
+                        <span>{image.size[0]}x{image.size[1]}</span>
+                    </td>
+                </tr>
+            );
+        }
         return(
-            <h2>Gallery in progress...</h2>
-        )
+            <div>
+                <h2 className="gallery_header">*** Gallery ***</h2>
+                <table className="gallery_table">
+                    <thead>
+                        <tr>
+                            <th>Link</th>
+                            <th>Preview</th>
+                            <th>Original size</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {rows}
+                    </tbody>
+                </table>
+            </div>
+        );
     }
 }
 
@@ -34,7 +92,6 @@ export class MyImageCreate extends React.Component{
             return response.json();
         })
         .then((responseJson) => {
-            console.log(responseJson);
             this.setState({
                 fileUrl: responseJson.image,
                 objectID: responseJson.id

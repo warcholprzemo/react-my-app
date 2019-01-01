@@ -1,0 +1,23 @@
+@keyframes plumk{
+    0% {color: red;}
+    25% {color: grey;}
+    50% {color: green;}
+    75% {color: blue;}
+    100% {color: red;}
+}
+
+
+.gallery_header{
+    text-align:center;
+    animation-name: "plumk";
+    animation-duration: 8s;
+    animation-iteration-count: infinite;
+}
+
+
+
+.gallery_table img{
+    max-width: 50px;
+    max-height: 50px;
+}
+
