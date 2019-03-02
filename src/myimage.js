@@ -17,7 +17,7 @@ export class MyImageList extends React.Component{
     }
 
     fillGallery(){
-        fetch(API_URL + "/api/myimage/list", {
+        fetch(API_URL + "/api/myimage/list/", {
             method: 'GET'
         })
         .then(response => {
