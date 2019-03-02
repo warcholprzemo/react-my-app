@@ -14,10 +14,12 @@
     animation-iteration-count: infinite;
 }
 
-
-
 .gallery_table img{
     max-width: 50px;
     max-height: 50px;
 }
 
+.http-error{
+    color: red;
+    font-weight: bold;
+}

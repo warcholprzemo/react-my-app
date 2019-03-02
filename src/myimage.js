@@ -76,7 +76,8 @@ export class MyImageCreate extends React.Component{
         /* The goal: fileUrl: "http://localhost:8000/media/file.png" */
         this.state = {
             fileUrl: "",
-            objectID: null
+            objectID: null,
+            httpErrorCode: null
         }
     }
 
@@ -89,6 +90,11 @@ export class MyImageCreate extends React.Component{
             body: data,
         })
         .then((response) => {
+            if(response.status > 400){
+                var error = new Error(response.status + ": " + response.statusText);
+                error.response = response;
+                throw error;
+            }
             return response.json();
         })
         .then((responseJson) => {
@@ -96,6 +102,11 @@ export class MyImageCreate extends React.Component{
                 fileUrl: responseJson.image,
                 objectID: responseJson.id
             })
+        })
+        .catch(error => {
+            this.setState({
+                httpErrorCode: error.toString(),
+            });
         });
     }
 
@@ -106,6 +117,11 @@ export class MyImageCreate extends React.Component{
                     <label>Object id: { this.state.objectID }</label>
                     <p><img src={ this.state.fileUrl } title={ this.state.fileUrl } /></p>
                 </div>
+            );
+        }
+        else if(this.state.httpErrorCode){
+            return (
+                <div className="http-error">{ this.state.httpErrorCode }</div>
             );
         }
         return (
