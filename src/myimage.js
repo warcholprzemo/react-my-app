@@ -89,15 +89,17 @@ export class MyImageCreate extends React.Component{
             method: 'POST',
             body: data,
         })
-        .then((response) => {
-            if(response.status > 400){
-                var error = new Error(response.status + ": " + response.statusText);
-                error.response = response;
+        .then(response => {
+            /* Note that creation the Error there is in the next `then` */
+            return Promise.all([response.status, response.statusText, response.json()]);
+        })
+        .then(([responseStatus, responseStatusText, responseJson]) => {
+            if(responseStatus >= 400){
+                let error = new Error(responseStatus + ": " + responseStatusText + "\n");
+                error += JSON.stringify(responseJson);
                 throw error;
             }
-            return response.json();
-        })
-        .then((responseJson) => {
+
             this.setState({
                 fileUrl: responseJson.image,
                 objectID: responseJson.id
@@ -120,8 +122,14 @@ export class MyImageCreate extends React.Component{
             );
         }
         else if(this.state.httpErrorCode){
+            let spans = [];
+            this.state.httpErrorCode.split('\n').map((item, key) => {
+                spans.push( <span key={key}>{item}<br/></span> );
+            });
             return (
-                <div className="http-error">{ this.state.httpErrorCode }</div>
+                <div className="http-error">
+                    { spans }
+                </div>
             );
         }
         return (
@@ -147,6 +155,10 @@ export class MyImageCreate extends React.Component{
                       encType="multipart/form-data">
                     <p>
                         <input type="file" name="image" />
+                    </p>
+                    <p>
+                        <label htmlFor="magicpasssword">Magic password</label>
+                        <input type="password" name="magicpassword" id="magicpassword" />
                     </p>
                     <p>
                         <input type="submit" value="Send form" />
