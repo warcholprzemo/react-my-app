@@ -157,7 +157,7 @@ export class MyImageCreate extends React.Component{
                         <input type="file" name="image" />
                     </p>
                     <p>
-                        <label htmlFor="magicpasssword">Magic password</label>
+                        <label htmlFor="magicpassword">Magic password</label>
                         <input type="password" name="magicpassword" id="magicpassword" />
                     </p>
                     <p>
