@@ -9,6 +9,9 @@ import {SimpleForm} from './forms';
 import {SomeDataList} from './somedatalist';
 import {BlogDetail, BlogList} from './try-markdown';
 import {MyImageCreate, MyImageList} from './myimage';
+import Fuu from './chess';
+import {observe, knightPosition, emitChange} from './chess-engine';
+import {Mosaic} from './mosaic';
 
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import {Helmet} from 'react-helmet';
@@ -34,6 +37,8 @@ class BaseStructure extends React.Component {
                             <li><Link to="/halloffame">⇨ TicTacToe: Hall of fame</Link></li>
                             <li><Link to="/myimage/create">⇨ Upload image [Test]</Link></li>
                             <li><Link to="/blog">⇨ Blog [PL]</Link></li>
+                            <li><Link to="/chess">⇨ Chess</Link></li>
+                            <li><Link to="/mosaic">⇨ Mosaic</Link></li>
                         </ul>
                     </div>
                     <div id="content">
@@ -51,6 +56,8 @@ class BaseStructure extends React.Component {
                         <Route path="/myimage/create" component={MyImageCreate} />
                         <Route path="/myimage/list" component={MyImageList} />
                         <Route path="/blog/:id" component={BlogDetail} />
+                        <Route path="/chess" component={Fuu} />
+                        <Route path="/mosaic" component={Mosaic} />
                     </div>
                 </div>
             </Router>
