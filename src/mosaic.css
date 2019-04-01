@@ -1,0 +1,19 @@
+.mosaic{
+    border:1px solid;
+}
+
+.grid2x2{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    max-width:150px;
+}
+.grid2x2 > .plate{
+    display: flex;
+    flex-basis: calc(50% - 10px);
+    justify-content: center;
+    flex-direction: column;
+}
+.divider{
+    margin-bottom: 15px;
+}
