@@ -11,7 +11,7 @@ import {BlogDetail, BlogList} from './try-markdown';
 import {MyImageCreate, MyImageList} from './myimage';
 import Fuu from './chess';
 import {observe, knightPosition, emitChange} from './chess-engine';
-import {Mosaic} from './mosaic';
+import Mosaic from './mosaic';
 
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import {Helmet} from 'react-helmet';

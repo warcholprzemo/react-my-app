@@ -7,7 +7,6 @@ import Mosaic4 from './images/mosaic4.png';
 
 import { DragDropContextProvider, DragDropContext, DragSource } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
-import {DropBoardSquare}  from './chess-board.js';
 
 import './mosaic.css';
 
@@ -21,6 +20,42 @@ function shuffleArray(array) {
     */
 }
 
+const ItemTypes = {
+    PLATE: 'plate'
+}
+
+const plateSource = {
+    beginDrag(props){
+        return {}
+    }
+}
+
+function collect(connect, monitor){
+    return{
+        connectDragSource: connect.dragSource(),
+        isDragging: monitor.isDragging(),
+    }
+}
+
+class Plate extends React.Component {
+    render(){
+        const { id } = this.props;
+        const { isDragging, connectDragSource } = this.props;
+        return connectDragSource(
+            <div className='mosaic plate' key={ '3' } style={{
+                height: '50px',
+                width: '50px',
+                backgroundColor:'#f00',
+                backgroundImage: "url(" + this.props.image + ")" ,
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'center center'
+            }}></div>
+        )
+    }
+}
+
+const DragablePlate = DragSource(ItemTypes.PLATE, plateSource, collect)(Plate);
+
 export class Mosaic extends React.Component {
     render(){
         const images = [Mosaic1, Mosaic2, Mosaic3, Mosaic4];
@@ -28,8 +63,8 @@ export class Mosaic extends React.Component {
         let imagesHtml = [];
         for(let i=0; i<images.length; i++){
             imagesHtml.push(
-                <img src={ images[i] } title='plate' className='mosaic plate' key={ 'plate-' + i } />
-            )
+                <DragablePlate image={ images[i] } />
+            );
         }
 
         return(
@@ -48,3 +83,5 @@ export class Mosaic extends React.Component {
         );
     }
 }
+
+export default DragDropContext(HTML5Backend)(Mosaic)
